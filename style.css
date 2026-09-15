@@ -264,10 +264,13 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Tono verde (no crema): las líneas de "hueco" del logo (el corte curvo y
+     los espacios del techo) dejan ver lo que hay detrás -- un fondo cálido
+     ahí se leía como rastros blancos filtrándose por esas líneas. */
   background: radial-gradient(
     circle at 38% 32%,
-    rgba(243, 239, 228, 0.16),
-    rgba(243, 239, 228, 0.05) 68%,
+    rgba(111, 207, 157, 0.14),
+    rgba(23, 42, 32, 0.55) 68%,
     transparent 78%
   );
   box-shadow: 0 40px 70px -30px rgba(0, 0, 0, 0.55);
