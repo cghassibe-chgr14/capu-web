@@ -25,7 +25,7 @@ html {
   scroll-behavior: smooth;
   /* Todo el tipo está en rem, así que subir la base sube toda la página un
      escalón parejo sin tocar cada regla una por una. */
-  font-size: 17px;
+  font-size: 18px;
 }
 
 body {
