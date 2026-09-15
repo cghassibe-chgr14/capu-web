@@ -1,15 +1,17 @@
 :root {
-  color-scheme: light;
-  --verde-900: #1c3d2b;
-  --verde-700: #2c5f45;
-  --verde-500: #3f7a5b;
+  color-scheme: dark;
+  --bg: #0d1912;
+  --bg-alt: #122019;
+  --card: #172a20;
+  --card-featured: #1d3628;
+  --verde-glow: #6fcf9d;
+  --verde-mid: #3f8a63;
   --durazno-400: #f0a85c;
-  --durazno-300: #f5c284;
-  --crema-100: #faf7f0;
-  --crema-050: #fffdf9;
-  --tinta: #1f2620;
-  --tinta-suave: #4a544c;
-  --borde: #e4ddcd;
+  --durazno-300: #f8c98a;
+  --texto: #f3efe4;
+  --texto-suave: #b6c4bb;
+  --borde: rgba(243, 239, 228, 0.1);
+  --plate: rgba(243, 239, 228, 0.06);
 
   --serif: "Fraunces", ui-serif, Georgia, serif;
   --sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
@@ -26,8 +28,8 @@ html {
 body {
   margin: 0;
   font-family: var(--sans);
-  color: var(--tinta);
-  background: var(--crema-100);
+  color: var(--texto);
+  background: var(--bg);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -49,7 +51,7 @@ a {
 
 h1, h2, h3 {
   font-family: var(--serif);
-  color: var(--verde-900);
+  color: var(--texto);
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -60,7 +62,7 @@ h1, h2, h3 {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(250, 247, 240, 0.86);
+  background: rgba(13, 25, 18, 0.86);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--borde);
 }
@@ -80,13 +82,16 @@ h1, h2, h3 {
   font-family: var(--serif);
   font-weight: 600;
   font-size: 1.25rem;
-  color: var(--verde-900);
+  color: var(--texto);
 }
 
 .brand-mark {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--plate);
 }
 
 .topnav {
@@ -98,12 +103,12 @@ h1, h2, h3 {
   text-decoration: none;
   font-weight: 600;
   font-size: 0.92rem;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
 }
 
 .topnav a:hover,
 .topnav a:focus-visible {
-  color: var(--verde-700);
+  color: var(--durazno-300);
 }
 
 /* --- Buttons --- */
@@ -133,41 +138,43 @@ h1, h2, h3 {
 }
 
 .btn-primary {
-  background: var(--verde-700);
-  color: var(--crema-050);
-  box-shadow: 0 10px 24px -12px rgba(44, 95, 69, 0.55);
+  background: var(--verde-mid);
+  color: var(--texto);
+  box-shadow: 0 10px 26px -12px rgba(63, 138, 99, 0.6);
 }
 
 .btn-primary:hover {
-  background: var(--verde-900);
+  background: var(--verde-glow);
+  color: var(--bg);
 }
 
 .btn-ghost {
   background: transparent;
-  color: var(--verde-900);
-  border-color: var(--verde-900);
+  color: var(--texto);
+  border-color: var(--texto-suave);
 }
 
 .btn-ghost:hover {
-  background: var(--verde-900);
-  color: var(--crema-050);
+  background: var(--texto);
+  color: var(--bg);
+  border-color: var(--texto);
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--verde-700);
-  border-color: var(--verde-500);
+  color: var(--verde-glow);
+  border-color: var(--verde-mid);
 }
 
 .btn-outline:hover {
-  background: var(--verde-700);
-  color: var(--crema-050);
+  background: var(--verde-mid);
+  color: var(--texto);
 }
 
 .btn-whatsapp {
   background: var(--durazno-400);
-  color: var(--verde-900);
-  box-shadow: 0 10px 24px -12px rgba(240, 168, 92, 0.6);
+  color: var(--bg);
+  box-shadow: 0 10px 26px -12px rgba(240, 168, 92, 0.55);
 }
 
 .btn-whatsapp:hover {
@@ -199,7 +206,7 @@ h1, h2, h3 {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-size: 0.78rem;
-  color: var(--verde-500);
+  color: var(--verde-glow);
   margin: 0 0 14px;
 }
 
@@ -212,7 +219,7 @@ h1, h2, h3 {
 .lede {
   margin: 22px 0 30px;
   font-size: 1.08rem;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   max-width: 46ch;
 }
 
@@ -225,7 +232,7 @@ h1, h2, h3 {
 .trust-note {
   margin: 22px 0 0;
   font-size: 0.86rem;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
 }
 
 .hero-visual {
@@ -238,16 +245,24 @@ h1, h2, h3 {
 
 .leaf-glow {
   position: absolute;
-  inset: -10% -10% -10% -10%;
-  background: radial-gradient(closest-side, rgba(240, 168, 92, 0.35), transparent 70%);
-  filter: blur(10px);
+  inset: -14% -14% -14% -14%;
+  background: radial-gradient(closest-side, rgba(240, 168, 92, 0.28), transparent 72%);
+  filter: blur(14px);
   z-index: 0;
 }
 
-.hero-logo {
+.hero-logo-plate {
   position: relative;
   z-index: 1;
   width: min(420px, 90%);
+  padding: 36px 32px;
+  border-radius: 28px;
+  background: var(--plate);
+  border: 1px solid var(--borde);
+}
+
+.hero-logo {
+  width: 100%;
 }
 
 @keyframes rise {
@@ -282,7 +297,7 @@ h1, h2, h3 {
 
 .proof-item p {
   margin: 0;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   font-size: 0.95rem;
 }
 
@@ -310,7 +325,7 @@ h1, h2, h3 {
 }
 
 .section-sub {
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   margin: 14px 0 0;
   font-size: 1.02rem;
 }
@@ -319,7 +334,7 @@ h1, h2, h3 {
 
 .pricing {
   padding-block: 72px;
-  background: var(--crema-050);
+  background: var(--bg-alt);
   border-top: 1px solid var(--borde);
   border-bottom: 1px solid var(--borde);
 }
@@ -334,7 +349,7 @@ h1, h2, h3 {
 
 .price-card {
   position: relative;
-  background: var(--crema-100);
+  background: var(--card);
   border: 1px solid var(--borde);
   border-radius: 20px;
   padding: 36px 32px;
@@ -344,28 +359,16 @@ h1, h2, h3 {
 }
 
 .price-card-featured {
-  background: var(--verde-900);
-  border-color: var(--verde-900);
-  color: var(--crema-050);
+  background: var(--card-featured);
+  border-color: var(--durazno-400);
   transform: translateY(-6px);
-  box-shadow: 0 24px 48px -24px rgba(28, 61, 43, 0.55);
-}
-
-.price-card-featured h3,
-.price-card-featured .price-amount {
-  color: var(--crema-050);
-}
-
-.price-card-featured .price-strike,
-.price-card-featured .price-period,
-.price-card-featured .price-features li {
-  color: rgba(250, 247, 240, 0.78);
+  box-shadow: 0 24px 48px -24px rgba(240, 168, 92, 0.35);
 }
 
 .price-badge {
   align-self: flex-start;
   background: var(--durazno-400);
-  color: var(--verde-900);
+  color: var(--bg);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.04em;
@@ -391,18 +394,18 @@ h1, h2, h3 {
   font-family: var(--serif);
   font-size: 2.6rem;
   font-weight: 600;
-  color: var(--verde-900);
+  color: var(--texto);
 }
 
 .price-period {
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   font-size: 0.95rem;
 }
 
 .price-strike {
   margin: 0;
   text-decoration: line-through;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   font-size: 0.88rem;
 }
 
@@ -429,7 +432,7 @@ h1, h2, h3 {
 
 .price-footnote {
   text-align: center;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   font-size: 0.88rem;
   max-width: 56ch;
   margin: 36px auto 0;
@@ -454,13 +457,13 @@ h1, h2, h3 {
   border-radius: 20px;
   padding: 32px 28px;
   text-align: center;
-  background: var(--crema-050);
+  background: var(--card);
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
 .download-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 38px -26px rgba(28, 61, 43, 0.4);
+  box-shadow: 0 20px 38px -26px rgba(240, 168, 92, 0.25);
 }
 
 .download-icon {
@@ -475,7 +478,7 @@ h1, h2, h3 {
 }
 
 .download-meta {
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   font-size: 0.88rem;
   margin: 0 0 18px;
   min-height: 1.2em;
@@ -483,7 +486,7 @@ h1, h2, h3 {
 
 .download-footnote {
   text-align: center;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
   font-size: 0.85rem;
   max-width: 62ch;
   margin: 32px auto 0;
@@ -493,20 +496,21 @@ h1, h2, h3 {
 
 .cta-final {
   padding-block: 88px;
-  background: var(--verde-900);
-  color: var(--crema-050);
+  background: linear-gradient(160deg, #193a29, #0d1912 72%);
+  color: var(--texto);
   text-align: center;
+  border-top: 1px solid var(--borde);
 }
 
 .cta-final h2 {
-  color: var(--crema-050);
+  color: var(--texto);
   font-size: clamp(1.9rem, 4vw, 2.5rem);
   font-weight: 600;
 }
 
 .cta-final-inner p {
   margin: 16px auto 32px;
-  color: rgba(250, 247, 240, 0.82);
+  color: var(--texto-suave);
   max-width: 48ch;
   font-size: 1.05rem;
 }
@@ -523,13 +527,13 @@ h1, h2, h3 {
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
-  color: var(--tinta-suave);
+  color: var(--texto-suave);
 }
 
 .footer-inner a {
   text-decoration: none;
   font-weight: 700;
-  color: var(--verde-700);
+  color: var(--durazno-300);
 }
 
 /* --- Responsive --- */
