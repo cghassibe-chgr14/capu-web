@@ -322,8 +322,8 @@ h1, h2, h3 {
 
 .proof-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 36px 32px;
   border-top: 1px solid var(--borde);
   padding-top: 48px;
 }
@@ -340,12 +340,13 @@ h1, h2, h3 {
 }
 
 .proof-num {
-  display: inline-block;
+  display: block;
   font-family: var(--serif);
-  font-size: 0.95rem;
+  font-size: 2.4rem;
   font-weight: 600;
+  line-height: 1;
   color: var(--durazno-400);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 /* --- Section head shared --- */
@@ -505,9 +506,23 @@ h1, h2, h3 {
 }
 
 .download-icon {
-  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--durazno-400);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.download-icon svg {
+  width: 34px;
+  height: 34px;
+}
+
+.download-store-note {
+  margin: 10px 0 0;
+  color: var(--texto-suave);
+  font-size: 0.82rem;
+  font-style: italic;
 }
 
 .download-card h3 {
@@ -629,7 +644,11 @@ h1, h2, h3 {
     padding-block: 56px 40px;
   }
 
-  .topnav a:not(:last-child) {
-    display: none;
+  .topnav {
+    gap: 12px;
+  }
+
+  .topnav a {
+    font-size: 0.82rem;
   }
 }
