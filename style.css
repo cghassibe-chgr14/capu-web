@@ -10,6 +10,11 @@
   --durazno-300: #f8c98a;
   --texto: #f3efe4;
   --texto-suave: #b6c4bb;
+  /* Verde oficial de Capu para fondo oscuro (el mismo de
+     logo_capu_simbolo_oscuro.png en la app). Contra --bg da 7.3:1; el verde
+     para fondo claro (#366447) daba 2.64:1, por debajo del mínimo de 3:1. */
+  --logo: #7fb08f;
+  --logo-acento: #f9b18b;
   --borde: rgba(243, 239, 228, 0.1);
   --plate: rgba(243, 239, 228, 0.06);
 
@@ -92,10 +97,10 @@ h1, h2, h3 {
 .brand-mark {
   width: 36px;
   height: 36px;
-  object-fit: contain;
   padding: 3px;
   border-radius: 999px;
   background: var(--plate);
+  color: var(--logo);
 }
 
 /* --- Menú (ícono de 3 guiones + dropdown) --- */
@@ -334,21 +339,24 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Tono verde (no crema): las líneas de "hueco" del logo (el corte curvo y
-     los espacios del techo) dejan ver lo que hay detrás -- un fondo cálido
-     ahí se leía como rastros blancos filtrándose por esas líneas. */
-  background: radial-gradient(
-    circle at 38% 32%,
-    rgba(111, 207, 157, 0.14),
-    rgba(23, 42, 32, 0.55) 68%,
-    transparent 78%
-  );
-  box-shadow: 0 40px 70px -30px rgba(0, 0, 0, 0.55);
+  /* Sin fondo ni sombra propios, a propósito: esto es solo el contenedor que
+     centra el logo y le da la animación de flote. Antes tenía un gradiente
+     que aclaraba el centro para tapar unos "rastros blancos" alrededor del
+     logo -- pero esos rastros no venían del fondo: el PNG estaba exportado
+     compuesto contra fondo claro y traía el halo horneado en sus bordes
+     (medido 2026-09-16: el 100% de sus píxeles de borde eran más claros que
+     el relleno). Con el logo ya en SVG el halo no existe, el verde claro da
+     7.3:1 por sí solo, y cualquier disco de fondo acá se enturbiaba contra
+     el glow durazno de .leaf-glow. El ambiente lo pone ese glow. */
   animation: float 6s ease-in-out infinite;
 }
 
 .hero-mark {
-  width: 62%;
+  /* Más grande que antes (62%): sin el disco de fondo, el logo es lo único
+     que ocupa ese espacio y a 62% quedaba perdido en el hueco. */
+  width: 82%;
+  height: auto;
+  color: var(--logo);
 }
 
 .hero-wordmark {
