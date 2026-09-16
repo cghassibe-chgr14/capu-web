@@ -184,7 +184,7 @@ async function cargarDescargas() {
 
   try {
     const resp = await fetch(
-      "https://api.github.com/repos/cghassibe/neto-releases/releases/latest",
+      "https://api.github.com/repos/cghassibe-chgr14/neto-releases/releases/latest",
       { headers: { Accept: "application/vnd.github+json" } },
     );
     if (!resp.ok) throw new Error(`GitHub respondió ${resp.status}`);
