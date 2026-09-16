@@ -1,6 +1,50 @@
 document.getElementById("year").textContent = new Date().getFullYear();
 
 /**
+ * Menú (ícono de 3 guiones): toggle simple, se cierra al elegir un link o al
+ * hacer click/tocar fuera del panel. Sin librería, es el mismo patrón que el
+ * carrusel -- HTML/CSS/JS plano.
+ */
+function iniciarMenu() {
+  const toggle = document.querySelector("[data-menu-toggle]");
+  const dropdown = document.querySelector("[data-menu-dropdown]");
+  if (!toggle || !dropdown) return;
+
+  function abrir() {
+    dropdown.classList.add("is-open");
+    toggle.classList.add("is-active");
+    toggle.setAttribute("aria-expanded", "true");
+  }
+
+  function cerrar() {
+    dropdown.classList.remove("is-open");
+    toggle.classList.remove("is-active");
+    toggle.setAttribute("aria-expanded", "false");
+  }
+
+  toggle.addEventListener("click", () => {
+    if (dropdown.classList.contains("is-open")) cerrar();
+    else abrir();
+  });
+
+  dropdown.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", cerrar);
+  });
+
+  document.addEventListener("click", (evento) => {
+    if (!dropdown.classList.contains("is-open")) return;
+    if (dropdown.contains(evento.target) || toggle.contains(evento.target)) return;
+    cerrar();
+  });
+
+  document.addEventListener("keydown", (evento) => {
+    if (evento.key === "Escape") cerrar();
+  });
+}
+
+iniciarMenu();
+
+/**
  * Carrusel de atributos: un track con scroll-snap horizontal, navegado por
  * flechas a los lados, puntos (generados según la cantidad real de slides,
  * así no hay que tocar JS si se agrega o quita un grupo) y autoavance en

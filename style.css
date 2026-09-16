@@ -71,6 +71,7 @@ h1, h2, h3 {
 }
 
 .topbar-inner {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -80,38 +81,107 @@ h1, h2, h3 {
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
   font-family: var(--serif);
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: 1.7rem;
   color: var(--texto);
 }
 
 .brand-mark {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
   padding: 3px;
   border-radius: 999px;
   background: var(--plate);
 }
 
-.topnav {
+/* --- Menú (ícono de 3 guiones + dropdown) --- */
+
+.menu-toggle {
   display: flex;
-  gap: 28px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+  border-color: var(--borde);
+  background: var(--plate);
+}
+
+.menu-toggle:focus-visible {
+  outline: 3px solid var(--durazno-400);
+  outline-offset: 2px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--texto);
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+/* Las 3 rayas se convierten en una X cuando el menú está abierto. */
+.menu-toggle.is-active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.is-active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.is-active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.topnav {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 24px;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 180px;
+  background: var(--card);
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+}
+
+.topnav.is-open {
+  display: flex;
 }
 
 .topnav a {
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   color: var(--texto-suave);
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: background-color 160ms ease, color 160ms ease;
 }
 
 .topnav a:hover,
 .topnav a:focus-visible {
   color: var(--durazno-300);
+  background: var(--plate);
 }
 
 /* --- Buttons --- */
@@ -291,6 +361,19 @@ h1, h2, h3 {
   font-size: clamp(1.6rem, 3vw, 2.1rem);
   color: var(--texto);
   letter-spacing: 0.01em;
+}
+
+.hero-seed-note {
+  position: relative;
+  z-index: 1;
+  margin: 10px 0 0;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--texto-suave);
+  max-width: 26ch;
+  margin-inline: auto;
 }
 
 @keyframes float {
@@ -757,10 +840,6 @@ h1, h2, h3 {
   .price-card-featured {
     transform: none;
   }
-
-  .topnav {
-    gap: 16px;
-  }
 }
 
 @media (max-width: 520px) {
@@ -772,24 +851,8 @@ h1, h2, h3 {
     padding-inline: 16px;
   }
 
-  /* La marca de texto ("Capu") compite por espacio con los 3 links del menú
-     en pantallas angostas -- se oculta y queda solo el ícono, que ya es
-     reconocible por sí solo. */
-  .brand span {
-    display: none;
-  }
-
-  .brand-mark {
-    width: 30px;
-    height: 30px;
-  }
-
-  .topnav {
-    gap: 10px;
-  }
-
-  .topnav a {
-    font-size: 0.76rem;
+  .brand {
+    font-size: 1.4rem;
   }
 
   .carousel-viewport {

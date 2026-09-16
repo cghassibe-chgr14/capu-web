@@ -18,7 +18,21 @@
         <img src="assets/icono.png" alt="" class="brand-mark" />
         <span>Capu</span>
       </a>
-      <nav class="topnav">
+
+      <button
+        type="button"
+        class="menu-toggle"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="menu-dropdown"
+        aria-label="Abrir menú"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="topnav" id="menu-dropdown" data-menu-dropdown>
         <a href="#precios">Precios</a>
         <a href="#descargas">Descargar</a>
         <a href="#contacto">Contacto</a>
@@ -43,12 +57,13 @@
           </div>
           <p class="trust-note">Sin tarjeta · Cancela cuando quieras · 1 dispositivo por licencia</p>
         </div>
-        <div class="hero-visual" aria-hidden="true">
-          <div class="leaf-glow"></div>
-          <div class="hero-mark-orb">
+        <div class="hero-visual">
+          <div class="leaf-glow" aria-hidden="true"></div>
+          <div class="hero-mark-orb" aria-hidden="true">
             <img src="assets/icono.png" alt="" class="hero-mark" />
           </div>
-          <p class="hero-wordmark">Capu</p>
+          <p class="hero-wordmark" aria-hidden="true">Capu</p>
+          <p class="hero-seed-note">Como un capullo, una semilla pequeña que crece a su tiempo.</p>
         </div>
       </div>
     </section>
