@@ -2,10 +2,12 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 /**
  * Carrusel de atributos: un track con scroll-snap horizontal, navegado por
- * botones prev/next y puntos (generados según la cantidad real de slides,
- * así no hay que tocar JS si se agrega o quita un grupo). El track sigue
- * siendo un <div> con overflow, no una librería -- el sitio es HTML/CSS/JS
- * plano a propósito (ver README).
+ * flechas a los lados, puntos (generados según la cantidad real de slides,
+ * así no hay que tocar JS si se agrega o quita un grupo) y autoavance en
+ * loop -- al llegar al último grupo vuelve al primero, y viceversa con la
+ * flecha izquierda desde el primero. El track sigue siendo un <div> con
+ * overflow, no una librería -- el sitio es HTML/CSS/JS plano a propósito
+ * (ver README).
  */
 function iniciarCarrusel() {
   const carrusel = document.querySelector("[data-carousel]");
@@ -18,12 +20,17 @@ function iniciarCarrusel() {
   const btnNext = carrusel.querySelector("[data-carousel-next]");
   if (!track || slides.length === 0 || !dotsWrap) return;
 
+  const AUTOPLAY_MS = 6000;
+
   const dots = slides.map((_, i) => {
     const dot = document.createElement("button");
     dot.type = "button";
     dot.className = "carousel-dot";
     dot.setAttribute("aria-label", `Ir al grupo ${i + 1}`);
-    dot.addEventListener("click", () => irASlide(i));
+    dot.addEventListener("click", () => {
+      irASlide(i);
+      reiniciarAutoplay();
+    });
     dotsWrap.appendChild(dot);
     return dot;
   });
@@ -48,13 +55,49 @@ function iniciarCarrusel() {
     dots.forEach((dot, i) => dot.classList.toggle("is-active", i === actual));
   }
 
+  // Recursivo: pasado el último grupo vuelve al primero (y al revés desde
+  // el primero con la flecha izquierda), con módulo para que un índice
+  // negativo también "de la vuelta" en vez de quedar fuera de rango.
   function irASlide(i) {
-    const objetivo = slides[Math.max(0, Math.min(slides.length - 1, i))];
+    const total = slides.length;
+    const objetivoIndex = ((i % total) + total) % total;
+    const objetivo = slides[objetivoIndex];
     track.scrollTo({ left: objetivo.offsetLeft, behavior: "smooth" });
   }
 
-  btnPrev?.addEventListener("click", () => irASlide(indiceActual() - 1));
-  btnNext?.addEventListener("click", () => irASlide(indiceActual() + 1));
+  function avanzar() {
+    irASlide(indiceActual() + 1);
+  }
+
+  function retroceder() {
+    irASlide(indiceActual() - 1);
+  }
+
+  let autoplayTimer = null;
+
+  function iniciarAutoplay() {
+    detenerAutoplay();
+    autoplayTimer = setInterval(avanzar, AUTOPLAY_MS);
+  }
+
+  function detenerAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+    autoplayTimer = null;
+  }
+
+  function reiniciarAutoplay() {
+    iniciarAutoplay();
+  }
+
+  btnPrev?.addEventListener("click", () => {
+    retroceder();
+    reiniciarAutoplay();
+  });
+
+  btnNext?.addEventListener("click", () => {
+    avanzar();
+    reiniciarAutoplay();
+  });
 
   // Mientras se hace scroll/swipe manual, los puntos se actualizan solos.
   let scrollTimer;
@@ -63,9 +106,19 @@ function iniciarCarrusel() {
     scrollTimer = setTimeout(marcarActivo, 80);
   });
 
+  // El autoavance se pausa mientras el usuario interactúa (hover, foco por
+  // teclado, o toque en móvil) para no interrumpirle la lectura o el swipe.
+  carrusel.addEventListener("mouseenter", detenerAutoplay);
+  carrusel.addEventListener("mouseleave", iniciarAutoplay);
+  carrusel.addEventListener("focusin", detenerAutoplay);
+  carrusel.addEventListener("focusout", iniciarAutoplay);
+  carrusel.addEventListener("touchstart", detenerAutoplay, { passive: true });
+  carrusel.addEventListener("touchend", iniciarAutoplay, { passive: true });
+
   window.addEventListener("resize", marcarActivo);
 
   marcarActivo();
+  iniciarAutoplay();
 }
 
 iniciarCarrusel();
